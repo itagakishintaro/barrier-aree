@@ -1,29 +1,45 @@
 h1, h2 {
-	margin-bottom: 2rem;
+    margin-bottom: 2rem;
 }
-
-#input {
-	font-size: large;
+#result {
+    font-size: large;
+    height: 500px;
 }
-
 .car {
-	margin: 0 auto;
-	font-size: xx-large;
-	text-align: center;
-	line-height: 10rem;
-	
-	width: 10rem;
-	height: 10rem;
-
-	border-radius: 1rem;
-	border: solid gray;
+    margin: 1rem auto 2rem;
+    font-size: large;
+    text-align: center;
+    line-height: 5rem;
+    display: block;
+    float: left;
+    width: 10%;
+    height: 5rem;
+    border-radius: 1rem;
+    border: solid gray;
 }
-
 .white {
-	background-color: white;
+    background-color: white;
+}
+.black {
+    background: radial-gradient(white, black);
+    /*font-color: white;*/
+}
+.tag{
+    clear:both;
 }
 
-.black {
-	background: radial-gradient(white, black);
-	/*font-color: white;*/
+/*マップ用*/
+#map-canvas {
+/*    margin: 0 auto;*/
+    width: 90%;
+    height: 500px;
+}
+.labels {
+    color: black;
+    background-color: white;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    font-size: 10px;
+    text-align: center;
+    border: 1px solid black;
+    white-space: nowrap;
 }
