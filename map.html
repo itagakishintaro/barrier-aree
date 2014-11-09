@@ -71,6 +71,15 @@ function handleLoadGoogleMap()
     disableDefaultUI: true
   };
   mymap = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+  d3.json('data/line_data.geojson', function(error, data)
+  {
+    if (error != null)
+    {
+      console.log(error);
+      return;
+    }
+    mymap.data.addGeoJson(data);
+  });
   d3.json('data/station_latlon.json', function(error, data)
   {
     if (error != null)
