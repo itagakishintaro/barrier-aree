@@ -1,0 +1,29 @@
+h1, h2 {
+	margin-bottom: 2rem;
+}
+
+#input {
+	font-size: large;
+}
+
+.car {
+	margin: 0 auto;
+	font-size: xx-large;
+	text-align: center;
+	line-height: 10rem;
+	
+	width: 10rem;
+	height: 10rem;
+
+	border-radius: 1rem;
+	border: solid gray;
+}
+
+.white {
+	background-color: white;
+}
+
+.black {
+	background: radial-gradient(white, black);
+	/*font-color: white;*/
+}
