@@ -2,10 +2,7 @@
 
 var URL = 'https://api.tokyometroapp.jp/api/v2/datapoints';
 var TOKEN = '22b4f2f8dd953bb676f7145b0777fb20e7d288e5f3662dd3837ccb6854eefadd';
-// 仮設定。本当はユーザーの入力からとる。
 var destination = '';
-var railway = 'odpt.Railway:TokyoMetro.Marunouchi';
-var railDirection = 'odpt.RailDirection:TokyoMetro.Ikebukuro';
 
 function getBlackCars() {
   $('#result *').remove();
@@ -41,24 +38,29 @@ function getBlackCars() {
         cars[i] = 0;
       }
       platformInformation.forEach(function(info){
-        if( info['odpt:railway'] === railway
-            && info['odpt:railDirection'] === railDirection
-            && info['odpt:barrierfreeFacility'] ){
-          info['odpt:barrierfreeFacility'].forEach(function(bff){
-            // エレベーターかエスカレーターのどちらかがある場合
-            if( bff.search(/Escalator/) > 0 || bff.search(/Elevator/) > 0 ){
-              cars[Number(info['odpt:carNumber'])] += 1;
-            }
-          });
+        if( info['odpt:railway'] === railway && info['odpt:railDirection'] === railDirection ){
+          // transferInformationがある or surroundingAreaがある => ブラック候補
+          if( info['odpt:transferInformation'] || info['odpt:surroundingArea'] ){
+            cars[Number(info['odpt:carNumber'])] -= 1;
+          }
+          // エレベーターかエスカレーターがあれば除外
+          if( info['odpt:barrierfreeFacility'] ){
+            info['odpt:barrierfreeFacility'].forEach(function(bff){
+              // エレベーターかエスカレーターのどちらかがある場合
+              if( bff.search(/Escalator/) > 0 || bff.search(/Elevator/) > 0 ){
+                cars[Number(info['odpt:carNumber'])] += 1;
+              }
+            });
+          }
         }
       });
 
       // 路線、進行方向のタグを表示
       setTag(railway, railDirection);
 
-      // バリアフリー施設があるときは白とないときは黒で図を表示
+      // (transferInformationがある or surroundingAreaがある) and (バリアフリー施設がない) => black
       for(var i = 1; i <= carComposition; i++){
-        if( cars[i] === 0 ){
+        if( cars[i] < 0 ){
           $('#result').append('<span class="car black">' + i + '</span>');
         } else {
           $('#result').append('<span class="car white">' + i + '</span>');
