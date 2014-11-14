@@ -23,18 +23,19 @@
       <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
     <![endif]-->
 
-    <link href='css/bba.css' rel='stylesheet'>
+    <link href='css/ba.css' rel='stylesheet'>
 </head>
 
 <body>
     <div class='container'>
         <h1>バリア・アリー</h1> 
         <div class='row'>
-            <h2><span class='label label-info'>入力</span></h2>
+<!--             <h2 id='input'><span class='label label-info'>入力</span></h2> -->
             <p>地図上の駅を選択してください。</p>
             <div id='map-canvas'></div>
-            <h2><span class='label label-info'>出力</span></h2>
+            <h2 id='output'><span class='label label-info'>バリア・アリーの状況</span></h2>
             <p>付近にエスカレーターもエレベーターもなく、階段しかない車両が黒く表示されます。</p>
+            <div id='loading'></div>
             <div id='result'></div>
         </div>
     </div>
@@ -43,8 +44,8 @@
     <script src='js/jquery-2.1.1.min.js'></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src='js/bootstrap.min.js'></script>
-    <script src='js/bba_dir.js'></script>
-    <script src='js/bba-map.js'></script>
+    <script src='js/ba.js'></script>
+    <script src='js/ba-map.js'></script>
 </body>
 
 </html>

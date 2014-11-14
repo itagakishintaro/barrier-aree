@@ -1,0 +1,71 @@
+h1, h2 {
+    margin-bottom: 2rem;
+}
+#loading img {
+    display: block;
+    margin: 0 auto;
+}
+#result {
+    height: 500px;
+}
+#station-name {
+    margin: 1rem 0;
+}
+#station-name span {
+    font-size: large;
+}
+.tag span {
+    font-size: small;
+}
+#result p {
+    color: green;
+    font-size: large;
+    margin: 1rem 0 0;
+}
+#result .car {
+    font-size: large;
+}
+.car {
+    margin: 1rem auto 2rem;
+    font-size: large;
+    text-align: center;
+    line-height: 5rem;
+    display: block;
+    float: left;
+    width: 10%;
+    height: 5rem;
+    border-radius: .5rem;
+    border: .1rem solid gray;
+}
+.white {
+    background-color: white;
+}
+.black {
+    background: radial-gradient(white, black);
+    /*font-color: white;*/
+}
+.left {
+    border-radius: 5rem .5rem .5rem 5rem / 3rem .5rem .5rem 3rem;
+}
+.right {
+    border-radius: .5rem 5rem 5rem .5rem / .5rem 3rem 3rem .5rem;
+}
+.tag{
+    clear:both;
+}
+
+/*マップ用*/
+#map-canvas {
+/*    margin: 0 auto;*/
+    width: 90%;
+    height: 500px;
+}
+.labels {
+    color: black;
+    background-color: white;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    font-size: 10px;
+    text-align: center;
+    border: 1px solid black;
+    white-space: nowrap;
+}
