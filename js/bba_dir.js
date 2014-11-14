@@ -6,7 +6,7 @@ var destination = '';
 
 function getBlackCars() {
   $('#result *').remove();
-
+  $('#result').append('<img src="img/loading.gif"></img>');
   $.ajax({
     url: URL,
     data: {
@@ -28,49 +28,50 @@ function getBlackCars() {
         }
       });
 
-    // 駅名の表示
-    setStationName(targets[0][0], destination);
+      // 駅名の表示
+      setStationName(targets[0][0], destination);
 
-    // 路線、進行方向ごとに、バリアフリーの有無を判定し、図を表示
-    targets.forEach(function(target){
-      var railway = target[0];
-      var railDirection = target[1];
-      var carComposition = target[2];
-      var arrow = target[3];  // 'l' か 'r'
-      var cars = [];
-      for(var i = 1; i <= carComposition; i++){
-        cars[i] = 0;
-      }
-      platformInformation.forEach(function(info){
-        if( info['odpt:railway'] === railway && info['odpt:railDirection'] === railDirection ){
-          // transferInformationがある or surroundingAreaがある => ブラック候補
-          if( info['odpt:transferInformation'] || info['odpt:surroundingArea'] ){
-            cars[Number(info['odpt:carNumber'])] -= 1;
+      // 路線、進行方向ごとに、バリアフリーの有無を判定し、図を表示
+      targets.forEach(function(target){
+        var railway = target[0];
+        var railDirection = target[1];
+        var carComposition = target[2];
+        var arrow = target[3];  // 'l' か 'r'
+        var cars = [];
+        for(var i = 1; i <= carComposition; i++){
+          cars[i] = 0;
+        }
+        platformInformation.forEach(function(info){
+          if( info['odpt:railway'] === railway && info['odpt:railDirection'] === railDirection ){
+            // transferInformationがある or surroundingAreaがある => ブラック候補
+            if( info['odpt:transferInformation'] || info['odpt:surroundingArea'] ){
+              cars[Number(info['odpt:carNumber'])] -= 1;
+            }
+            // エレベーターかエスカレーターがあれば除外
+            if( info['odpt:barrierfreeFacility'] ){
+              info['odpt:barrierfreeFacility'].forEach(function(bff){
+                // エレベーターかエスカレーターのどちらかがある場合
+                if( bff.search(/Escalator/) > 0 || bff.search(/Elevator/) > 0 ){
+                  cars[Number(info['odpt:carNumber'])] += 1;
+                }
+              });
+            }
           }
-          // エレベーターかエスカレーターがあれば除外
-          if( info['odpt:barrierfreeFacility'] ){
-            info['odpt:barrierfreeFacility'].forEach(function(bff){
-              // エレベーターかエスカレーターのどちらかがある場合
-              if( bff.search(/Escalator/) > 0 || bff.search(/Elevator/) > 0 ){
-                cars[Number(info['odpt:carNumber'])] += 1;
-              }
-            });
-          }
+        });
+
+        $('#result img').remove();
+        // 路線、進行方向のタグを表示
+        setTag(railway, railDirection, arrow);
+
+        // (transferInformationがある or surroundingAreaがある) and (バリアフリー施設がない) => black
+        for(var i = 1; i <= carComposition; i++){
+          if( cars[i] < 0 ){
+            $('#result').append('<span class="car black">' + i + '</span>');
+          } else {
+            $('#result').append('<span class="car white">' + i + '</span>');
+          } 
         }
       });
-
-      // 路線、進行方向のタグを表示
-      setTag(railway, railDirection, arrow);
-
-      // (transferInformationがある or surroundingAreaがある) and (バリアフリー施設がない) => black
-      for(var i = 1; i <= carComposition; i++){
-        if( cars[i] < 0 ){
-          $('#result').append('<span class="car black">' + i + '</span>');
-        } else {
-          $('#result').append('<span class="car white">' + i + '</span>');
-        } 
-      }
-    });
     });
   });
 }
