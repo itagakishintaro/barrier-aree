@@ -17,16 +17,16 @@ function getBlackCars() {
   }).done(function(facility) {
     d3.csv('data/line_direction.csv',function(err, direction)
     {
-    var platformInformation = facility[0]['odpt:platformInformation'];
-    // 路線、進行方向、車両編成の一覧を取得
-    var targets = [];
-    platformInformation.forEach(function(info){
-      var target = [ info['odpt:railway'], info['odpt:railDirection'], info['odpt:carComposition']];
-      target.push(direction.filter(function(d){return d['railway']===target[0] && d['direction']===target[1];})[0].lr);
-      if(targets.join().indexOf(target.join()) < 0){
-        targets.push(target);
-      }
-    });
+      var platformInformation = facility[0]['odpt:platformInformation'];
+      // 路線、進行方向、車両編成の一覧を取得
+      var targets = [];
+      platformInformation.forEach(function(info){
+        var target = [ info['odpt:railway'], info['odpt:railDirection'], info['odpt:carComposition']];
+        target.push(direction.filter(function(d){return d['railway']===target[0] && d['direction']===target[1];})[0].lr); // target に進行方向 l か r を追加
+        if(targets.join().indexOf(target.join()) < 0){
+          targets.push(target);
+        }
+      });
 
     // 駅名の表示
     setStationName(targets[0][0], destination);
@@ -36,7 +36,7 @@ function getBlackCars() {
       var railway = target[0];
       var railDirection = target[1];
       var carComposition = target[2];
-      var arrow = target[3];
+      var arrow = target[3];  // 'l' か 'r'
       var cars = [];
       for(var i = 1; i <= carComposition; i++){
         cars[i] = 0;
@@ -93,7 +93,7 @@ function setStationName(railway, destination){
   });
 }
 
-function setTag(railway, railDirection, lr){
+function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' か 'r'
   // 路線名を取得
   var railway_name = '';
   $.ajax({
@@ -127,5 +127,5 @@ function setTag(railway, railDirection, lr){
     railDirection_name = station[0]['dc:title'];
     // $('#result').append('<div><span class="label label-default">' + station[0]['dc:title'] + '駅方面行き</span></div>');
   });
-  $('#result').append('<div class="tag"><span class="label label-default">' + railway_name + '線</span> <span class="label label-default">' + railDirection_name + '駅方面行き ('+(lr==='l'?'←':'→')+')</span></div>');
+  $('#result').append('<div class="tag"><span class="label label-default">' + railway_name + '線</span> <span class="label label-default">' + railDirection_name + '駅方面行き('+(lr==='l'?'←':'→')+')</span></div>'); // lr に応じて矢印を表示
 }
