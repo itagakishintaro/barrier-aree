@@ -40,6 +40,7 @@ function handleLoadGoogleMap()
        labelAnchor: new google.maps.Point(22, 0),
        labelClass: 'labels',
        labelStyle: {opacity: 1.0},
+       icon: 'img/s_TokyoMetro.png'
       };
       var marker = new MarkerWithLabel(markerOpts);
       google.maps.event.addListener(marker, 'click', function()

@@ -141,5 +141,5 @@ function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' �
   }).done(function(station) {
     railDirection_name = station[0]['dc:title'];
   });
-  $('#result').append('<div class="tag"><span class="label label-default">' + railway_name + '線</span> <span class="label label-default">' + railDirection_name + '駅方面行き('+(lr==='l'?'←':'→')+')</span></div>'); // lr に応じて矢印を表示
+  $('#result').append('<div class="tag"><img class="line-mark" src="img/LineMark/' + railway_name + '.jpg"></img> <span class="label label-default">' + railDirection_name + '駅方面行き</span> </div>'); // lr に応じて矢印を表示
 }

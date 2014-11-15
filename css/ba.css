@@ -19,7 +19,6 @@ h1, h2 {
 }
 #result p {
     color: green;
-    font-size: large;
     margin: 1rem 0 0;
 }
 #result .car {
@@ -52,6 +51,9 @@ h1, h2 {
 }
 .tag{
     clear:both;
+}
+.line-mark{
+    width: 3.5rem;
 }
 
 /*マップ用*/
