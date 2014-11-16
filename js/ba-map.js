@@ -19,7 +19,12 @@ function handleLoadGoogleMap()
       console.log(error);
       return;
     }
+    var styleFeature = function(feature)
+    {
+      return {strokeWeight: 12, strokeColor: feature.getProperty('color')};
+    };
     mymap.data.addGeoJson(data);
+    mymap.data.setStyle(styleFeature);
   });
   d3.json('data/station_latlon.json', function(error, data)
   {
@@ -39,7 +44,7 @@ function handleLoadGoogleMap()
        labelContent: d.name,
        labelAnchor: new google.maps.Point(22, 0),
        labelClass: 'labels',
-       labelStyle: {opacity: 1.0},
+       labelStyle: {opacity: 0.75},
        icon: 'img/s_TokyoMetro.png'
       };
       var marker = new MarkerWithLabel(markerOpts);

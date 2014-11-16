@@ -20,6 +20,7 @@ function handleLoadGoogleMap()
       return;
     }
     mymap.data.addGeoJson(data);
+    mymap.data.setStyle(styleFeature);
   });
   d3.json('data/station_latlon.json', function(error, data)
   {
