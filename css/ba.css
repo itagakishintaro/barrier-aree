@@ -55,6 +55,12 @@ h1, h2 {
 .line-mark{
     width: 3.5rem;
 }
+.aree {
+    transform: rotate(5deg);
+}
+.logo{
+    max-width: 100%;
+}
 
 /*マップ用*/
 #map-canvas {
