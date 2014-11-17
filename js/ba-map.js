@@ -138,6 +138,30 @@ function handleLoadGoogleMap()
     ]
   },
   {
+    "featureType": "road.arterial",
+    "stylers": [
+      { "visibility": "off" },
+      { "color": "#808080" }
+    ]
+  },{
+    "featureType": "road.highway",
+    "stylers": [
+      { "color": "#808080" }
+    ]
+  },{
+    "featureType": "transit.line",
+    "stylers": [
+      { "color": "#C0C0C0" }
+    ]
+  },
+  {
+    "featureType": "water",
+    "stylers": [
+      { "color": "#CCe6FF" },
+      { "saturation": -19 }
+    ]
+  },
+  {
     "featureType": "poi",
     "stylers": [
       { "visibility": "off" }
@@ -179,7 +203,7 @@ function handleLoadGoogleMap()
     "stylers": [
       { "visibility": "on" },
       { "hue": "#00b2ff" },
-      { "color": "#202020" }
+      { "color": "#404040" }
     ]
   }
   ];
