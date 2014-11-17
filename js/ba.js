@@ -29,6 +29,13 @@ function getBlackCars() {
       });
 
       // 駅名の表示
+      if (destination.split('.')[destination.split('.').length - 1]==='NakanoShimbashi' ||
+        destination.split('.')[destination.split('.').length - 1]==='NakanoFujimicho' ||
+        destination.split('.')[destination.split('.').length - 1]==='Honancho')
+      {
+        targets[0][0] += 'Branch';
+        targets[1][0] += 'Branch';
+      }
       setStationName(targets[0][0], destination);
 
       // 路線、進行方向ごとに、バリアフリーの有無を判定し、図を表示
@@ -95,7 +102,6 @@ function setStationName(railway, destination){
   var railway_split = railway.split('.');
   var destination_split = destination.split('.');
   var sameAs = 'odpt.Station:TokyoMetro.' + railway_split[railway_split.length - 1] + '.' + destination_split[destination_split.length - 1];
-
   $.ajax({
     url: URL,
     async: false,
@@ -128,7 +134,6 @@ function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' �
   var railway_split = railway.split('.');
   var railDirection_split = railDirection.split('.');
   var sameAs = 'odpt.Station:TokyoMetro.' + railway_split[railway_split.length - 1] + '.' + railDirection_split[railDirection_split.length - 1];
-
   $.ajax({
     url: URL,
     async: false,
@@ -140,6 +145,5 @@ function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' �
   }).done(function(station) {
     railDirection_name = station[0]['dc:title'];
   });
-  console.log(railway_name);
   $('#result').append('<div class="tag"><img class="line-mark" src="img/LineMark/' + railway_name + '.jpg"></img> <span class="label label-default">' + railDirection_name + '駅方面行き</span> </div>'); // lr に応じて矢印を表示
 }
