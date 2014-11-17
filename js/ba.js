@@ -65,7 +65,7 @@ function getBlackCars() {
 
         // 全てが白い車両の場合のメッセージ表示
         if( cars.every(function(element, index, array){ return element >= 0; }) ){
-          $('#result').append('<p>マナー守ろうね。</p>');
+          $('#result').append('<p>エスカレーターではマナーを守って歩かないでくださいね。</p>');
         }
 
         // (transferInformationがある or surroundingAreaがある) and (バリアフリー施設がない) => black
