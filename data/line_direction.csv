@@ -3,6 +3,8 @@ odpt.Railway:TokyoMetro.Ginza,odpt.RailDirection:TokyoMetro.Shibuya,A,l
 odpt.Railway:TokyoMetro.Ginza,odpt.RailDirection:TokyoMetro.Asakusa,B,r
 odpt.Railway:TokyoMetro.MarunouchiBranch,odpt.RailDirection:TokyoMetro.NakanoSakaue,B,r
 odpt.Railway:TokyoMetro.MarunouchiBranch,odpt.RailDirection:TokyoMetro.Honancho,A,l
+odpt.Railway:TokyoMetro.Marunouchi,odpt.RailDirection:TokyoMetro.NakanoSakaue,B,r
+odpt.Railway:TokyoMetro.Marunouchi,odpt.RailDirection:TokyoMetro.Honancho,A,l
 odpt.Railway:TokyoMetro.Marunouchi,odpt.RailDirection:TokyoMetro.Ikebukuro,B,r
 odpt.Railway:TokyoMetro.Marunouchi,odpt.RailDirection:TokyoMetro.Ogikubo,A,l
 odpt.Railway:TokyoMetro.Hibiya,odpt.RailDirection:TokyoMetro.KitaSenju,B,l

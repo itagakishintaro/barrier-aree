@@ -22,6 +22,7 @@ function getBlackCars() {
       var targets = [];
       platformInformation.forEach(function(info){
         var target = [ info['odpt:railway'], info['odpt:railDirection'], info['odpt:carComposition']];
+        console.log(target);
         target.push(direction.filter(function(d){return d['railway']===target[0] && d['direction']===target[1];})[0].lr); // target に進行方向 l か r を追加
         if(targets.join().indexOf(target.join()) < 0){
           targets.push(target);
@@ -111,6 +112,7 @@ function setStationName(railway, destination){
 
 function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' か 'r'
   // 路線名を取得
+  console.log(railway + ' ' + railDirection);
   var railway_name = '';
   $.ajax({
     url: URL,

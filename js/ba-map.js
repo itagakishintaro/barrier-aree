@@ -148,7 +148,15 @@ function handleLoadGoogleMap()
     "stylers": [
       { "color": "#808080" }
     ]
-  },{
+  },
+  {
+    "featureType": "transit.station",
+    elementType: 'label',
+    "stylers": [
+      { visibility: "off" }
+    ]
+  },
+  {
     "featureType": "transit.line",
     "stylers": [
       { "color": "#C0C0C0" }
