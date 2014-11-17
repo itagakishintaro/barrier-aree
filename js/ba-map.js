@@ -211,7 +211,7 @@ function handleLoadGoogleMap()
     {name: "Styled Map"});
   var mapOptions = {
     center: new google.maps.LatLng(35.6874916666667,139.766158333333),
-    zoom: 13,
+    zoom: 14,
 //    mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControlOptions: {
       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
