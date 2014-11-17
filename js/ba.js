@@ -22,7 +22,6 @@ function getBlackCars() {
       var targets = [];
       platformInformation.forEach(function(info){
         var target = [ info['odpt:railway'], info['odpt:railDirection'], info['odpt:carComposition']];
-        console.log(target);
         target.push(direction.filter(function(d){return d['railway']===target[0] && d['direction']===target[1];})[0].lr); // target に進行方向 l か r を追加
         if(targets.join().indexOf(target.join()) < 0){
           targets.push(target);
@@ -112,7 +111,6 @@ function setStationName(railway, destination){
 
 function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' か 'r'
   // 路線名を取得
-  console.log(railway + ' ' + railDirection);
   var railway_name = '';
   $.ajax({
     url: URL,
@@ -124,6 +122,7 @@ function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' �
     }
   }).done(function(railway) {
     railway_name = railway[0]['dc:title'];
+  });
   // 進行方向名を取得
   var railDirection_name = '';
   var railway_split = railway.split('.');
@@ -140,7 +139,7 @@ function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' �
     }
   }).done(function(station) {
     railDirection_name = station[0]['dc:title'];
+  });
+  console.log(railway_name);
   $('#result').append('<div class="tag"><img class="line-mark" src="img/LineMark/' + railway_name + '.jpg"></img> <span class="label label-default">' + railDirection_name + '駅方面行き</span> </div>'); // lr に応じて矢印を表示
-  });
-  });
 }
