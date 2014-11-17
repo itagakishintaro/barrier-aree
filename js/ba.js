@@ -122,8 +122,6 @@ function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' �
     }
   }).done(function(railway) {
     railway_name = railway[0]['dc:title'];
-  });
-
   // 進行方向名を取得
   var railDirection_name = '';
   var railway_split = railway.split('.');
@@ -140,6 +138,7 @@ function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' �
     }
   }).done(function(station) {
     railDirection_name = station[0]['dc:title'];
-  });
   $('#result').append('<div class="tag"><img class="line-mark" src="img/LineMark/' + railway_name + '.jpg"></img> <span class="label label-default">' + railDirection_name + '駅方面行き</span> </div>'); // lr に応じて矢印を表示
+  });
+  });
 }
