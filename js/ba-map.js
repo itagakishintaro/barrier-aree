@@ -279,8 +279,8 @@ function handleLoadGoogleMap()
 function show(station,name)
 {
   destination = station;
-  showResult(station,name);
-//  getBlackCars();
+//  showResult(station,name);
+  getBlackCars();
   location.href = '#output';
 }
 

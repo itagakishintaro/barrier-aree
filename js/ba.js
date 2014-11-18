@@ -113,7 +113,7 @@ function getBlackCars() {
         targets[0][0] += 'Branch';
         targets[1][0] += 'Branch';
       }
-      setStationName(targets[0][0], destination);
+      setTimeout(setStationName,100,targets[0][0], destination);
 
       // 路線、進行方向ごとに、バリアフリーの有無を判定し、図を表示
       targets.forEach(function(target){
@@ -145,7 +145,7 @@ function getBlackCars() {
 
         $('#loading img').remove();
         // 路線、進行方向のタグを表示
-        setTag(railway, railDirection, arrow);
+        setTimeout(setTag,100,railway, railDirection, arrow);
 
         // 全てが白い車両の場合のメッセージ表示
         if( cars.every(function(element, index, array){ return element >= 0; }) ){
