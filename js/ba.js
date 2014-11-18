@@ -126,8 +126,8 @@ function setTag(railway, railDirection, lr){  // lr に進行方向情報 'l' �
       'rdf:type': 'odpt:Railway',
       'owl:sameAs': railway
     }
-  }).done(function(railway) {
-    railway_name = railway[0]['dc:title'];
+  }).done(function(v) {
+    railway_name = v[0]['dc:title'];
   });
   // 進行方向名を取得
   var railDirection_name = '';
