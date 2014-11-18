@@ -2,10 +2,87 @@
 
 var URL = 'https://api.tokyometroapp.jp/api/v2/datapoints';
 var TOKEN = '22b4f2f8dd953bb676f7145b0777fb20e7d288e5f3662dd3837ccb6854eefadd';
+var api = URL + '?acl:consumerKey='+TOKEN;
 var destination = '';
 
+function showResult(station,name)
+{
+  d3.selectAll('#result *').remove();
+  d3.select('#loading').append('img').attr('src','img/loading.gif');
+  d3.select('#result').append('div').attr('id','station-name').append('span').attr('class','label label-primary').text(name);
+  d3.json(api+'&rdf:type=odpt:StationFacility&owl:sameAs='+station,function(err,facData)
+  {
+    if (err != null)
+    {
+      console.log(err);
+      return;
+    }
+    d3.csv('data/line_direction.csv', function(err2, dirData)
+    {
+      if (err2 != null)
+      {
+        $('#loading img').remove();
+        console.log(err);
+        return;
+      }
+      var facility = facData[0];
+      var platformInformation = facility['odpt:platformInformation'];
+      platformInformation.forEach(function(d)
+      {
+        d.black = ((d['odpt:transferInformation']!=null || d['odpt:surroundingArea']!=null) && (d['odpt:barrierfreeFacility']==null || d['odpt:barrierfreeFacility'].every(function(dd){return (dd.search(/Escalator/)==0)&&(dd.search(/Elevator/)==0);})));
+        d.head = false;
+        if (d['odpt:carNumber']===d['odpt:carComposition']||d['odpt:carNumber']===1)
+        {
+          var lr = dirData.filter(function(dd){return dd.railway===d['odpt:railway']&&dd.direction===d['odpt:railDirection'];});
+          if (lr.length < 1)
+          {
+            $('#loading img').remove();
+            console.log('direction data not found');
+            return;
+          }
+          d.head = (d['odpt:carNumber']===1 && lr[0].lr ==='l') || (d['odpt:carNumber']===d['odpt:carComposition'] && lr[0].lr ==='r');
+        }
+      });
+      var railways = d3.set(platformInformation.map(function(d){return d['odpt:railway'];})).values();
+      var displayData = [];
+      railways.forEach(function(rail)
+      {
+        var tmp = platformInformation.filter(function(d){return d['odpt:railway']===rail;});
+        var directions = d3.set(tmp.map(function(d){return d['odpt:railDirection'];})).values();
+        directions.forEach(function(dir)
+        {
+          var lr = dirData.filter(function(d){return d.railway===rail&&d.direction===dir;});
+          if (lr.length < 1)
+          {
+            $('#loading img').remove();
+            console.log('direction data not found');
+            return;
+          }
+          var cars = tmp.filter(function(d){return d['odpt:railDirection']===dir;}).sort(function(a,b){return a['odpt:carNumber']<b['odpt:carNumber']?-1:1;});
+          displayData.push({railway:rail,railwayName:lr[0].railwayName, direction:dir,directionName:lr[0].directionName,cars:cars.map(function(d){return {black:d.black,head:d.head,number:d['odpt:carNumber']};})});
+        });
+      });
+      // show the results
+      $('#loading img').remove();
+      var s = d3.select('#result').append('div').selectAll('.train').data(displayData).enter().append('div').attr('class','train');
+      var s1 = s.append('div').attr('class','tag');
+      s1.append('img').attr('class','line-mark').attr('src',function(d){return 'img/LineMark/'+d.railway.replace(/.*\./g,'')+'.jpg';});
+      s1.append('span').attr('class','label label-default').text(function(d){return d.directionName + '駅方面行き';});
+      s.filter(function(d){return d.cars.every(function(dd){return !dd.black;});}).append('p').text('エスカレーターではマナーを守って歩かないでくださいね。');
+      var s2 = s.append('div').attr('class','cars');
+      s2.each(function(node)
+      {
+        d3.select(this).selectAll('span').data(node.cars).enter().append('span').text(function(d){return d.number;}).attr('class',function(d)
+        {
+          return 'car'+((d.black)?' black':' white')+((d.head)?((d.number==1)?' left':' right'):'');
+        });
+      });
+    });
+  });
+}
+
 function getBlackCars() {
-  $('#result *').remove();
+  d3.selectAll('#result *').remove();
   $('#loading').append('<img src="img/loading.gif"></img>');
   $.ajax({
     url: URL,

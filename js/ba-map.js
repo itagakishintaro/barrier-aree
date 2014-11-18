@@ -268,7 +268,7 @@ function handleLoadGoogleMap()
       var marker = new MarkerWithLabel(markerOpts);
       google.maps.event.addListener(marker, 'click', function()
       {
-        show(d.id);
+        show(d.id,d.name);
       });
     });
   });
@@ -276,10 +276,11 @@ function handleLoadGoogleMap()
 
 
 // ここから出力
-function show(station)
+function show(station,name)
 {
   destination = station;
-  getBlackCars();
+  showResult(station,name);
+//  getBlackCars();
   location.href = '#output';
 }
 
