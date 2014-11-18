@@ -17,7 +17,7 @@ function showResult(station,name)
       console.log(err);
       return;
     }
-    d3.csv('data/line_direction.csv', function(err2, dirData)
+    d3.csv('data/direction.csv', function(err2, dirData)
     {
       if (err2 != null)
       {
